@@ -27,11 +27,14 @@ const InputStyle = styled.input`
     margin: 0 auto 15px auto;
     padding: 15px;
     border: none;
+    font-size: 20px;
+    line-height: 23px;
+    color: #000000;
 
     ::placeholder {
         font-size: 20px;
         line-height: 23px;
-        color: #000000;
+        color: rgba(0,0,0,0.5);
     }
 
     :focus {

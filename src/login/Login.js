@@ -1,9 +1,13 @@
 import styled from 'styled-components'
+import { useState } from 'react'
 
 import Input from '../shared/Input'
 import Button from '../shared/Button'
 
 function Login() {
+
+    const [loginData, setLoginData] = useState({email: '', senha: ''})
+
     return (
         <LoginStyle>
             <Titulo>MyWalldfdet</Titulo>
@@ -11,14 +15,14 @@ function Login() {
                 <Input
                     type="email"
                     placeholder="E-mail"
-                    value=""
-                    functionOnChange={() => console.log('oi')}
+                    value={loginData.email}
+                    functionOnChange={(e) => setLoginData({...loginData, email: e.target.value})}
                 />
                 <Input
                     type="password"
                     placeholder="Senha"
-                    value=""
-                    functionOnChange={() => console.log('oi')}
+                    value={loginData.senha}
+                    functionOnChange={(e) => setLoginData({...loginData, senha: e.target.value})}
                 />
                 <Button
                     input='entrar'
