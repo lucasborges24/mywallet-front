@@ -1,18 +1,23 @@
 import styled from "styled-components"
 
-function Header (props) {
+function Header ({children, margin}) {
     return (
-        <HeaderStyled>
-            {props.children}
+        <HeaderStyled margin={margin}>
+            {children}
         </HeaderStyled>
     )
 }
 
 const HeaderStyled = styled.header`
+    width: 100%;
     font-weight: 700;
     font-size: 26px;
     line-height: 31px;
     color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    margin-bottom: ${({margin}) => margin}px;
 `
 
 export default Header
