@@ -11,7 +11,7 @@ function Login() {
 
     return (
         <LoginStyle>
-            <Titulo>MyWalldfdet</Titulo>
+            <Titulo>MyWallet</Titulo>
             <Form onSubmit={() => console.log('enviei')}>
                 <Input
                     type="email"
@@ -47,13 +47,6 @@ const LoginStyle = styled.div`
     transform: translate(-50%, -50%)
 `
 
-const Form = styled.form`
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-`
-
 const Titulo = styled.h1`
     font-family: 'Saira Stencil One';
     font-size: 32px;
@@ -61,6 +54,13 @@ const Titulo = styled.h1`
     color: #FFFFFF;
     margin-bottom: 25px;
 `
+const Form = styled.form`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+`
+
 const LinkLogin = styled(Link)`
     font-weight: 700;
     font-size: 15px;
