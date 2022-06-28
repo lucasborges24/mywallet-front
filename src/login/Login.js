@@ -1,12 +1,13 @@
 import styled from 'styled-components'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 import Input from '../shared/Input'
 import Button from '../shared/Button'
 
 function Login() {
 
-    const [loginData, setLoginData] = useState({email: '', senha: ''})
+    const [loginData, setLoginData] = useState({ email: '', senha: '' })
 
     return (
         <LoginStyle>
@@ -16,19 +17,21 @@ function Login() {
                     type="email"
                     placeholder="E-mail"
                     value={loginData.email}
-                    functionOnChange={(e) => setLoginData({...loginData, email: e.target.value})}
+                    functionOnChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
                 />
                 <Input
                     type="password"
                     placeholder="Senha"
                     value={loginData.senha}
-                    functionOnChange={(e) => setLoginData({...loginData, senha: e.target.value})}
+                    functionOnChange={(e) => setLoginData({ ...loginData, senha: e.target.value })}
                 />
                 <Button
                     input='entrar'
                 />
             </Form>
-            <H6>Primeira vez? Cadastre-se!</H6>
+            <LinkLogin to='/cadastro'>
+                Primeira vez? Cadastre-se!
+            </LinkLogin>
         </LoginStyle>
     )
 }
@@ -58,13 +61,13 @@ const Titulo = styled.h1`
     color: #FFFFFF;
     margin-bottom: 25px;
 `
-
-const H6 = styled.h6`
+const LinkLogin = styled(Link)`
     font-weight: 700;
     font-size: 15px;
     line-height: 18px;
     color: #FFFFFF;
     margin-top: 25px;
+    text-decoration: none;
 `
 
 export default Login
