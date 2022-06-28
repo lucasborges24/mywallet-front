@@ -1,6 +1,7 @@
 import styled from 'styled-components'
 
 import Input from '../shared/Input'
+import Button from '../shared/Button'
 
 function Login() {
     return (
@@ -19,7 +20,11 @@ function Login() {
                     value=""
                     functionOnChange={() => console.log('oi')}
                 />
+                <Button
+                    input='entrar'
+                />
             </Form>
+            <H6>Primeira vez? Cadastre-se!</H6>
         </LoginStyle>
     )
 }
@@ -48,6 +53,14 @@ const Titulo = styled.h1`
     line-height: 50px;
     color: #FFFFFF;
     margin-bottom: 25px;
+`
+
+const H6 = styled.h6`
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 18px;
+    color: #FFFFFF;
+    margin-top: 25px;
 `
 
 export default Login

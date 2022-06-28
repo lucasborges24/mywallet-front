@@ -26,6 +26,7 @@ const InputStyle = styled.input`
     border-radius: 5px;
     margin: 0 auto 15px auto;
     padding: 15px;
+    border: none;
 
     ::placeholder {
         font-size: 20px;
