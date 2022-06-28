@@ -6,6 +6,7 @@ ${reset}
   * {
     box-sizing: border-box;
     font-family: 'Raleway', sans-serif;
+    background-color: #8c11be;
   }
 `
 

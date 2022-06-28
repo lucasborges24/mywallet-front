@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Switch } from 'react-router-dom';
 import { useState } from 'react';
+// falta usar o usercontext -> pegar depois
 
 import Cadastro from './cadastro/Cadastro';
 import Editar from './editar/Editar';
