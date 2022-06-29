@@ -1,18 +1,55 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { ThreeDots } from 'react-loader-spinner'
+import axios from 'axios'
 
 import Input from '../shared/Input'
 import Button from '../shared/Button'
 
 function Cadastro() {
 
+    const navigate = useNavigate();
+
     const [cadastroData, setCadastroData] = useState({name: '', email: '', password: '', confirmPassword: ''})
+    const [buttonEnable, setButtonEnable] = useState(true)
+
+    function checkPasswords(password, confirmPassword) {
+        if (password !== confirmPassword ) return false;
+        return true;
+    }
+
+    function signup(event) {
+        event.preventDefault();
+        if (!buttonEnable) return;
+        if (buttonEnable) {
+            setButtonEnable(false);
+            const passwordValid = checkPasswords(cadastroData.password, cadastroData.confirmPassword)
+            if (!passwordValid) {
+                setButtonEnable(true)
+                return alert('senhas sao diferentes');
+            }
+            const response = axios.post("http://localhost:5000/cadastro", {
+                name: cadastroData.name,
+                email: cadastroData.email,
+                password: cadastroData.password
+            });
+
+            response
+                .then(() => navigate("/login"))
+                .catch(err => {
+                    alert(`Ocorreu o erro ${err.response.statusText}. Por favor, tente novamente`);
+                    setButtonEnable(true);
+                })
+
+
+        }
+    }
 
     return (
         <CadastroStyle>
             <Titulo>MyWallet</Titulo>
-            <Form onSubmit={() => console.log('enviei')}>
+            <Form onSubmit={signup}>
                 <Input
                     type="text"
                     placeholder="Nome"
@@ -38,7 +75,11 @@ function Cadastro() {
                     functionOnChange={(e) => setCadastroData({ ...cadastroData, confirmPassword: e.target.value })}
                 />
                 <Button
-                    input='Cadastrar'
+                    input= {
+                        buttonEnable ?
+                            "Cadastrar" :
+                            <ThreeDots color="#fff" height={70} width={70} />
+                    }
                 />
             </Form>
             <LinkCadastro to='/login'>

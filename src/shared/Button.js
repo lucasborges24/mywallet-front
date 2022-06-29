@@ -11,6 +11,10 @@ function Button ({input}) {
 }
 
 const ButtonStyle = styled.button`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
     width: 326px;
     height: 46px;
     background: #A328D6;
