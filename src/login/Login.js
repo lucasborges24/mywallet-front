@@ -1,32 +1,60 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { ThreeDots } from 'react-loader-spinner'
 
 import Input from '../shared/Input'
 import Button from '../shared/Button'
+import UserContext from '../context/UserContext'
 
 function Login() {
-
+    
+    const { setUserToken } = useContext(UserContext)
     const navigate = useNavigate();
 
     const [loginData, setLoginData] = useState({ email: '', password: '' })
     const [buttonEnable, setButtonEnable] = useState(true)
+
+    if ((JSON.parse(localStorage.getItem("loginDataStoraged"))) !== null) {
+        doLoginNow();
+    }
+
+    function doLoginNow() {
+        const dataStoraged = JSON.parse(localStorage.getItem("loginDataStoraged"))
+        const res = axios.post("http://localhost:5000/login", {
+            email: dataStoraged.email,
+            password: dataStoraged.password
+        });
+
+        res
+            .then(({data}) => {
+                setUserToken(data)
+                navigate('/')
+            })
+            .catch(err => {
+                localStorage.removeItem("loginDataStoraged")
+            })
+    }
 
     function signin(event) {
         event.preventDefault();
         if (!buttonEnable) return;
         if (buttonEnable) {
             setButtonEnable(false);
-            
+
             const response = axios.post("http://localhost:5000/login", {
                 email: loginData.email,
                 password: loginData.password
             });
 
             response
-                .then(() => navigate("/"))
+                .then(({ data }) => {
+                    setUserToken(data);
+                    console.log(data);
+                    localStorage.setItem("loginDataStoraged", JSON.stringify(loginData))
+                    navigate('/')
+                })
                 .catch(err => {
                     alert(`Ocorreu o erro ${err.response.statusText}. Por favor, tente novamente`);
                     setButtonEnable(true);
@@ -53,7 +81,7 @@ function Login() {
                     functionOnChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                 />
                 <Button
-                    input= {
+                    input={
                         buttonEnable ?
                             "Entrar" :
                             <ThreeDots color="#fff" height={70} width={70} />

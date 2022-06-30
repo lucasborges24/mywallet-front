@@ -18,6 +18,10 @@ const HeaderStyled = styled.header`
     align-items: center;
     justify-content: flex-start;
     margin-bottom: ${({margin}) => margin}px;
+
+    span {
+        text-transform: capitalize;
+    }
 `
 
 export default Header
