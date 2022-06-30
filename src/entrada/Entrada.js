@@ -16,7 +16,7 @@ import { ThreeDots } from 'react-loader-spinner'
 function Entrada() {
    
     const navigate = useNavigate();
-    const { userToken, setUserToken, values, setValues } = useContext(UserContext);
+    const { userToken } = useContext(UserContext);
     const [entradaData, setEntradaData] = useState({
         value: 0,
         description: ''
@@ -27,13 +27,18 @@ function Entrada() {
             "Authorization": `Bearer ${userToken}`
         }
     }  
-    console.log(entradaData)
+    
 
     function entradaSubmit(event) {
         event.preventDefault();
         if (!buttonEnable) return;
         if (buttonEnable) {
             setButtonEnable(false);
+
+            if (entradaData.value === 0 || entradaData.value === 'R$0,00') {
+                alert('Adicione um valor')
+                return setButtonEnable(true)
+            }
 
             const valueFormated = Number(entradaData.value.slice(2).split(',').join('.'))
 
@@ -46,7 +51,6 @@ function Entrada() {
 
             res
                 .then(() => {
-                    // setValues({...values, data});
                     setButtonEnable(true);
                     navigate('/')
                 })
@@ -92,6 +96,7 @@ const EntradaStyle = styled.div`
     justify-content: center;
     align-items: center;
     margin: 25px;
+    
 `
 
 const InputStyle = styled(CurrencyInput)`
