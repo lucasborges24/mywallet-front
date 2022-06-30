@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, Link } from "react-router-dom"
 import { useState, useContext, useEffect } from "react"
 import axios from "axios"
 
@@ -26,7 +26,7 @@ function Home() {
 
         res
             .then(({ data }) => {
-                setValues(data[1])
+                setValues(data[1].reverse())
                 setUser(data[0])
             })
             .catch(err => console.log(err.message))
@@ -46,13 +46,18 @@ function Home() {
         return saldo;
     }
 
+    function logout() {
+        localStorage.removeItem("loginDataStoraged")
+        navigate("/login")
+    }
+
     return (
         <HomeLayout>
             <HomeHeader>
                 <Header margin='22'>
                     <p>Olá, <span>{user.name}</span></p>
                 </Header>
-                <Icon>
+                <Icon onClick={() => logout()}>
                     <ion-icon name="log-out-outline"></ion-icon>
                 </Icon>
             </HomeHeader>
@@ -79,13 +84,13 @@ function Home() {
                     }
                 </Movimentacoes>
                 <Botoes>
-                    <EntradaSaida>
+                    <EntradaSaida onClick={() => navigate('/entrada')}>
                         <ion-icon name="add-circle-outline"></ion-icon>
-                        <P>
+                        <P >
                             Nova entrada
                         </P>
                     </EntradaSaida>
-                    <EntradaSaida>
+                    <EntradaSaida onClick={() => navigate('/saida')}>
                         <ion-icon name="remove-circle-outline"></ion-icon>
                         <P>
                             Nova saída
@@ -165,7 +170,7 @@ const Movimentacoes = styled.div`
 `
 
 const Values = styled.div`
-    max-height: calc(50vh);
+    max-height: 90%;
     overflow-y: scroll;
 `
 
@@ -177,7 +182,7 @@ const Total = styled.div`
     margin: 10px 5px 10px 0;
     max-width: 320px;
     width: 97%;
-    height: 30px;
+    height: 40px;
     background-color: #ffffff;
     position: absolute;
     bottom: 0; right: 0;
