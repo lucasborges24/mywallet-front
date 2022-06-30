@@ -100,10 +100,10 @@ const LoginStyle = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100%;
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%)
+    width: 100%;
+    padding: 0 10px;
+    margin: auto 0;
+    height: 100vh;
 `
 
 const Titulo = styled.h1`
@@ -114,6 +114,8 @@ const Titulo = styled.h1`
     margin-bottom: 25px;
 `
 const Form = styled.form`
+    width: 100%;
+    max-width: 326px;
     display: flex;
     justify-content: center;
     align-items: center;

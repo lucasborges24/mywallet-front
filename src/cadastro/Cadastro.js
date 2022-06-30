@@ -94,10 +94,9 @@ const CadastroStyle = styled.div`
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 100%;
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%)
+    height: 100vh;
+    margin: auto 0;    
+    padding: 0 10px;
 `
 
 const Titulo = styled.h1`
@@ -113,6 +112,8 @@ const Form = styled.form`
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    max-width: 326px;
+    width: 100%;
 `
 
 const LinkCadastro = styled(Link)`
