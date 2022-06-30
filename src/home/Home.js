@@ -74,6 +74,8 @@ function Home() {
                                     description={i.description}
                                     type={i.type}
                                     day={i.day}
+                                    id={i._id}
+                                    config={config}
                                 ></Item>)}
                             </Values>
                             <Total>

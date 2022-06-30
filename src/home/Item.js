@@ -1,13 +1,50 @@
 import styled from "styled-components"
+import { useContext } from "react";
+import axios from "axios";
+
+import UserContext from "../context/UserContext"
+
 
 function Item({
     value,
     description,
     type,
-    day
+    day,
+    id,
+    config
 }) {
 
-    const valueFormated = (value.toFixed(2)).replace('.',',')
+    const { userToken, setUserToken, values, setValues } = useContext(UserContext);
+    const valueFormated = (value.toFixed(2)).replace('.', ',')
+
+    function deleteItem() {
+        if (!values.find(i => i._id === id)) return console.log('oi')
+        if (window.confirm("Você quer mesmo excluir esse item?")) {
+            console.log('deu certo')
+
+            const URL = `http://localhost:5000/${id}`
+            console.log(config)
+            const req = axios.delete(URL, config)
+
+            req
+                .then(() => {
+                    const URL = "http://localhost:5000/"
+                    const res = axios.get(URL, config);
+
+                    res
+                        .then(({ data }) => {
+                            setValues(data[1].reverse())
+                        })
+                        .catch(err => console.log(err.message))
+                })
+                .catch(err => {
+                    alert("não foi possível cancelar pelo erro " + err.message)
+                })
+
+
+        }
+    }
+
 
 
     return (
@@ -18,8 +55,8 @@ function Item({
                     <P name='description'>{description}</P>
                 </DataDescription>
                 <ValueDelete>
-                <P name={type} margin='4'>{valueFormated}</P>
-                    <Icon>
+                    <P name={type} margin='4'>{valueFormated}</P>
+                    <Icon onClick={deleteItem}>
                         <ion-icon name="close-outline"></ion-icon>
                     </Icon>
                 </ValueDelete>
@@ -58,7 +95,7 @@ const P = styled.p`
     line-height: 19px;
     font-size: 16px;
     color: ${({ name }) => text(name)};
-    margin-right: ${({margin}) => margin}px;
+    margin-right: ${({ margin }) => margin}px;
 `
 
 const Icon = styled.div`
