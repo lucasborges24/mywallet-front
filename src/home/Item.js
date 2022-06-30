@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useContext } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 import UserContext from "../context/UserContext"
 
@@ -14,6 +15,7 @@ function Item({
     config
 }) {
 
+    const navigate = useNavigate()
     const { userToken, setUserToken, values, setValues } = useContext(UserContext);
     const valueFormated = (value.toFixed(2)).replace('.', ',')
 
@@ -50,12 +52,12 @@ function Item({
     return (
         <>
             <ItemStyle>
-                <DataDescription>
+                <DataDescription onClick={() => navigate(`/editar/${id}`)}>
                     <P name='data' margin='4'>{day}</P>
                     <P name='description'>{description}</P>
                 </DataDescription>
                 <ValueDelete>
-                    <P name={type} margin='4'>{valueFormated}</P>
+                    <P onClick={() => navigate(`/editar/${id}`)} name={type} margin='4'>{valueFormated}</P>
                     <Icon onClick={deleteItem}>
                         <ion-icon name="close-outline"></ion-icon>
                     </Icon>

@@ -54,7 +54,10 @@ function Entrada() {
                     setButtonEnable(true);
                     navigate('/')
                 })
-                .catch(err => console.log(err.message))
+                .catch(err => {
+                    setButtonEnable(true)
+                    console.log(err.message)
+                })
         }
     }
 
