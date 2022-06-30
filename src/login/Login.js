@@ -1,18 +1,45 @@
 import styled from 'styled-components'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import axios from 'axios'
+import { ThreeDots } from 'react-loader-spinner'
 
 import Input from '../shared/Input'
 import Button from '../shared/Button'
 
 function Login() {
 
-    const [loginData, setLoginData] = useState({ email: '', senha: '' })
+    const navigate = useNavigate();
+
+    const [loginData, setLoginData] = useState({ email: '', password: '' })
+    const [buttonEnable, setButtonEnable] = useState(true)
+
+    function signin(event) {
+        event.preventDefault();
+        if (!buttonEnable) return;
+        if (buttonEnable) {
+            setButtonEnable(false);
+            
+            const response = axios.post("http://localhost:5000/login", {
+                email: loginData.email,
+                password: loginData.password
+            });
+
+            response
+                .then(() => navigate("/"))
+                .catch(err => {
+                    alert(`Ocorreu o erro ${err.response.statusText}. Por favor, tente novamente`);
+                    setButtonEnable(true);
+                })
+
+
+        }
+    }
 
     return (
         <LoginStyle>
             <Titulo>MyWallet</Titulo>
-            <Form onSubmit={() => console.log('enviei')}>
+            <Form onSubmit={signin}>
                 <Input
                     type="email"
                     placeholder="E-mail"
@@ -22,11 +49,15 @@ function Login() {
                 <Input
                     type="password"
                     placeholder="Senha"
-                    value={loginData.senha}
-                    functionOnChange={(e) => setLoginData({ ...loginData, senha: e.target.value })}
+                    value={loginData.password}
+                    functionOnChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
                 />
                 <Button
-                    input='entrar'
+                    input= {
+                        buttonEnable ?
+                            "Entrar" :
+                            <ThreeDots color="#fff" height={70} width={70} />
+                    }
                 />
             </Form>
             <LinkLogin to='/cadastro'>
