@@ -9,6 +9,7 @@ function Header ({children, margin}) {
 }
 
 const HeaderStyled = styled.header`
+    max-width: 326px;
     width: 100%;
     font-weight: 700;
     font-size: 26px;

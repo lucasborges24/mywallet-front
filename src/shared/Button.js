@@ -15,7 +15,8 @@ const ButtonStyle = styled.button`
     justify-content: center;
     align-items: center;
     
-    width: 326px;
+    max-width: 326px;
+    width: 100%;
     height: 46px;
     background: #A328D6;
     border-radius: 5px;

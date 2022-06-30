@@ -14,7 +14,7 @@ import { ThreeDots } from 'react-loader-spinner'
 
 
 function Entrada() {
-   
+
     const navigate = useNavigate();
     const { userToken } = useContext(UserContext);
     const [entradaData, setEntradaData] = useState({
@@ -26,8 +26,8 @@ function Entrada() {
         headers: {
             "Authorization": `Bearer ${userToken}`
         }
-    }  
-    
+    }
+
 
     function entradaSubmit(event) {
         event.preventDefault();
@@ -57,7 +57,7 @@ function Entrada() {
                 .catch(err => console.log(err.message))
         }
     }
-    
+
 
     return (
         <EntradaStyle>
@@ -66,10 +66,10 @@ function Entrada() {
             </Header>
             <Form onSubmit={entradaSubmit}>
                 <InputStyle
-                    decimalSeparator="," 
+                    decimalSeparator=","
                     thousandSeparator="."
                     prefix="R$"
-                    value={entradaData.value}                    
+                    value={entradaData.value}
                     onChangeEvent={(e) => setEntradaData({ ...entradaData, value: e.target.value })}
                 />
                 <Input
@@ -91,16 +91,18 @@ function Entrada() {
 }
 
 const EntradaStyle = styled.div`
+    width: auto;
+    /* height: 50%; */
+    margin: 25px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    margin: 25px;
-    
+    justify-content: center;
 `
 
 const InputStyle = styled(CurrencyInput)`
-    width: 326px;
+    max-width: 326px;
+    width: 100%;
     height: 58px;
     background: #FFFFFF;
     border-radius: 5px;
@@ -123,7 +125,11 @@ const InputStyle = styled(CurrencyInput)`
 `
 
 const Form = styled.form`
-
+   width: 100%; 
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   flex-direction: column;
 `
 
 export default Entrada
