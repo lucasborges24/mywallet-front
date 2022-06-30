@@ -35,14 +35,14 @@ function Home() {
 
     function sum(values) {
         let saldo = 0;
-        for (let i = 0; i < values.length; i ++) {
+        for (let i = 0; i < values.length; i++) {
             if (values[i].type === 'in') {
                 saldo += values[i].value
             } else if (values[i].type === 'out') {
                 saldo -= values[i].value
             }
         }
-        saldo = (saldo.toFixed(2)).replace('.',',');
+        saldo = (saldo.toFixed(2)).replace('.', ',');
         return saldo;
     }
 
@@ -58,19 +58,25 @@ function Home() {
             </HomeHeader>
             <Main>
                 <Movimentacoes>
-                    <Values>
-                    {values.map((i, key) => <Item
-                        key={key}
-                        value={i.value}
-                        description={i.description}
-                        type={i.type}
-                        day={i.day}
-                    ></Item>)}
-                    </Values>
-                    <Total>
-                        <H6 color='#000000'>SALDO</H6>
-                        <H6 color="#03AC00">R${sum(values)}</H6>
-                    </Total>
+                    {values.length === 0 ?
+                        <Warning>Não há registros de
+                        entrada ou saída</Warning> :
+                        <>
+                            <Values>
+                                {values.map((i, key) => <Item
+                                    key={key}
+                                    value={i.value}
+                                    description={i.description}
+                                    type={i.type}
+                                    day={i.day}
+                                ></Item>)}
+                            </Values>
+                            <Total>
+                                <H6 color='#000000'>SALDO</H6>
+                                <H6 color="#03AC00">R${sum(values)}</H6>
+                            </Total>
+                        </>
+                    }
                 </Movimentacoes>
                 <Botoes>
                     <EntradaSaida>
@@ -130,6 +136,20 @@ const Main = styled.main`
     width: 100%;
 `
 
+const Warning = styled.h2`
+    font-family: 'Raleway';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 23px;
+    width: 60%;
+    text-align: center;
+    color: #868686;
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%)
+`
+
 const Movimentacoes = styled.div`
     max-width: 326px;
     width: 100%;
@@ -168,7 +188,7 @@ const H6 = styled.h6`
     font-weight: 700;
     font-size: 17px;
     line-height: 20px;
-    color: ${({color}) => color}
+    color: ${({ color }) => color}
 `
 
 const Botoes = styled.div`
