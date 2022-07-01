@@ -22,6 +22,12 @@ const ButtonStyle = styled.button`
     border-radius: 5px;
     border: none;
     margin-bottom: 10px;
+    transition: 200ms ease;
+    cursor: pointer;
+    
+    :hover {
+        filter: brightness(1.1)
+    }
 
     font-weight: 700;
     font-size: 20px;

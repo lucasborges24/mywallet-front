@@ -49,10 +49,6 @@ function Item({
         }
     }
 
-
-
-
-
     return (
         <>
             <ItemStyle>
@@ -83,6 +79,12 @@ const ItemStyle = styled.div`
     align-items: center;
     justify-content: space-between;
     margin-bottom: 5px;
+    transition: 100ms ease;
+    cursor: pointer;
+
+    :hover {
+        background-color: #f2f2f2;
+    }
 `
 
 const DataDescription = styled.div`
@@ -107,6 +109,12 @@ const P = styled.p`
 const Icon = styled.div`
     font-size: 19px;
     color: #C6C6C6;
+    transition: 200ms ease;
+
+    cursor: pointer;
+    :hover {
+        color: #C70000;
+    }
 `
 
 export default Item

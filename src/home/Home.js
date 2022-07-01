@@ -138,9 +138,16 @@ const Icon = styled.div`
     display: flex;
     align-items: flex-start;
     justify-content: center;
+    
     ion-icon {
         color: #FFFFFF;
         font-size: 25px;
+        transition: 300ms ease;
+        cursor: pointer;
+    }
+
+    ion-icon:hover {
+        font-size: 27px;
     }
 `
 
@@ -227,7 +234,12 @@ const EntradaSaida = styled.div`
     background: #A328D6;
     border-radius: 5px;
     position: relative;
+    transition: 200ms ease;
+    cursor: pointer;
     
+    :hover {
+        filter: brightness(1.1)
+    }
 
     ion-icon {
         position: absolute;

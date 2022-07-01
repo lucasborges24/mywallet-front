@@ -31,6 +31,7 @@ const InputStyle = styled.input`
     font-size: 20px;
     line-height: 23px;
     color: #000000;
+    
 
     ::placeholder {
         font-size: 20px;
