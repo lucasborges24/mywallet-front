@@ -43,14 +43,20 @@ function Home() {
                 saldo -= values[i].value
             }
         }
-        saldo = formatValue(saldo);
-        return saldo;
+        return Number(saldo.toFixed(2));
+    }
+
+    function changeColor(num) {      
+        if (num > 0) return '#03AC00'
+        if (num < 0) return '#C70000'
+        if (num === 0) return "#C6C6C6"
     }
 
     function logout() {
         localStorage.removeItem("loginDataStoraged")
         navigate("/login")
     }
+
 
     return (
         <HomeLayout>
@@ -81,7 +87,7 @@ function Home() {
                             </Values>
                             <Total>
                                 <H6 color='#000000'>SALDO</H6>
-                                <H6 color="#03AC00">R${sum(values)}</H6>
+                                <H6 color={changeColor(sum(values))}>R${formatValue(sum(values))}</H6>
                             </Total>
                         </>
                     }
@@ -105,6 +111,8 @@ function Home() {
         </HomeLayout>
     )
 }
+
+
 
 const HomeLayout = styled.div`
     display: flex;
