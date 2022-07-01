@@ -16,12 +16,11 @@ function Login() {
 
     const [loginData, setLoginData] = useState({ email: '', password: '' })
     const [buttonEnable, setButtonEnable] = useState(true)
-    const [loginLoad, setLoginLoad] = useState(false)
 
     useEffect(() => {
         if ((JSON.parse(localStorage.getItem("loginDataStoraged"))) !== null) {
             const dataStoraged = JSON.parse(localStorage.getItem("loginDataStoraged"))
-            setLoginLoad(true)
+            
             const res = axios.post("http://localhost:5000/login", {
                 email: dataStoraged.email,
                 password: dataStoraged.password
@@ -30,12 +29,12 @@ function Login() {
             res
                 .then(({ data }) => {
                     setUserToken(data)
-                    setLoginLoad(false)
+                    
                     navigate('/')
                 })
                 .catch(err => {
                     localStorage.removeItem("loginDataStoraged")
-                    setLoginLoad(false)
+                    
                 })
         }
     }, [])
@@ -101,15 +100,7 @@ function Login() {
 
     return (
         <LoginStyle>
-            {loginLoad ?
-                <BallTriangle
-                    heigth="500"
-                    width="500"
-                    color="#A328D6"
-                    ariaLabel="loading-indicator"
-                /> :
-                loginForms()
-            }
+            {loginForms()}
         </LoginStyle>
     )
 }
