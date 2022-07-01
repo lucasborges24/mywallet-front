@@ -49,7 +49,7 @@ function Editar({
             if (typeof editarData.value === 'number') {
                 valueFormated = editarData.value
             } else {
-                valueFormated = Number(editarData.value.slice(2).split(',').join('.'))
+                valueFormated = Number(editarData.value.slice(2).split(',').join('.').split('.').join('')) / 100
             }
             console.log(valueFormated)
             const URL = `http://localhost:5000/editar/${id}`

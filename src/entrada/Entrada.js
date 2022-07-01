@@ -40,7 +40,7 @@ function Entrada() {
                 return setButtonEnable(true)
             }
 
-            const valueFormated = Number(entradaData.value.slice(2).split(',').join('.'))
+            const valueFormated = Number(entradaData.value.slice(2).split(',').join('.').split('.').join('')) / 100
 
             const URL = 'http://localhost:5000/entrada'
             const res = axios.post(URL, {

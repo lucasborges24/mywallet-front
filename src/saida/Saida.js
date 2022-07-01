@@ -36,7 +36,7 @@ function Saida() {
                 return setButtonEnable(true)
             }
 
-            const valueFormated = Number(saidaData.value.slice(2).split(',').join('.'))
+            const valueFormated = Number(saidaData.value.slice(2).split(',').join('.').split('.').join('')) / 100
 
 
             const URL = 'http://localhost:5000/saida'
