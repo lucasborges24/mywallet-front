@@ -30,9 +30,11 @@ function Home() {
                 setValues(data[1].reverse())
                 setUser(data[0])
             })
-            .catch(err => console.log(err.message))
+            .catch(err => {
+                console.log(err.message)
+                navigate('/login')
+            })
     }, [])
-    console.log(values)
 
     function sum(values) {
         let saldo = 0;
