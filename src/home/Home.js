@@ -119,7 +119,7 @@ const HomeLayout = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin: 25px;
+    margin: 25px 25px 0 25px;
     
 `
 
