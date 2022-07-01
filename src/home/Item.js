@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import UserContext from "../context/UserContext"
+import formatValue from "../shared/formatValue";
 
 
 function Item({
@@ -17,7 +18,8 @@ function Item({
 
     const navigate = useNavigate()
     const { userToken, setUserToken, values, setValues } = useContext(UserContext);
-    const valueFormated = (value.toFixed(2)).replace('.', ',')
+    const valueFormated = formatValue(value);
+
 
     function deleteItem() {
         if (!values.find(i => i._id === id)) return console.log('oi')
@@ -46,6 +48,8 @@ function Item({
 
         }
     }
+
+
 
 
 

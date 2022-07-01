@@ -6,6 +6,7 @@ import axios from "axios"
 import Header from "../shared/Header"
 import UserContext from "../context/UserContext"
 import Item from "./Item"
+import formatValue from "../shared/formatValue"
 
 function Home() {
 
@@ -42,7 +43,7 @@ function Home() {
                 saldo -= values[i].value
             }
         }
-        saldo = (saldo.toFixed(2)).replace('.', ',');
+        saldo = formatValue(saldo);
         return saldo;
     }
 
