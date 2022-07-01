@@ -2,40 +2,43 @@ import styled from 'styled-components'
 import { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { ThreeDots } from 'react-loader-spinner'
+import { ThreeDots, BallTriangle } from 'react-loader-spinner'
 
 import Input from '../shared/Input'
 import Button from '../shared/Button'
 import UserContext from '../context/UserContext'
+import { useEffect } from 'react'
 
 function Login() {
-    
+
     const { setUserToken } = useContext(UserContext)
     const navigate = useNavigate();
 
     const [loginData, setLoginData] = useState({ email: '', password: '' })
     const [buttonEnable, setButtonEnable] = useState(true)
+    const [loginLoad, setLoginLoad] = useState(false)
 
-    if ((JSON.parse(localStorage.getItem("loginDataStoraged"))) !== null) {
-        doLoginNow();
-    }
+    useEffect(() => {
+        if ((JSON.parse(localStorage.getItem("loginDataStoraged"))) !== null) {
+            const dataStoraged = JSON.parse(localStorage.getItem("loginDataStoraged"))
+            setLoginLoad(true)
+            const res = axios.post("http://localhost:5000/login", {
+                email: dataStoraged.email,
+                password: dataStoraged.password
+            });
 
-    function doLoginNow() {
-        const dataStoraged = JSON.parse(localStorage.getItem("loginDataStoraged"))
-        const res = axios.post("http://localhost:5000/login", {
-            email: dataStoraged.email,
-            password: dataStoraged.password
-        });
-
-        res
-            .then(({data}) => {
-                setUserToken(data)
-                navigate('/')
-            })
-            .catch(err => {
-                localStorage.removeItem("loginDataStoraged")
-            })
-    }
+            res
+                .then(({ data }) => {
+                    setUserToken(data)
+                    setLoginLoad(false)
+                    navigate('/')
+                })
+                .catch(err => {
+                    localStorage.removeItem("loginDataStoraged")
+                    setLoginLoad(false)
+                })
+        }
+    }, [])
 
     function signin(event) {
         event.preventDefault();
@@ -64,33 +67,49 @@ function Login() {
         }
     }
 
+    function loginForms() {
+        return (
+            <>
+                <Titulo>MyWallet</Titulo>
+                <Form onSubmit={signin}>
+                    <Input
+                        type="email"
+                        placeholder="E-mail"
+                        value={loginData.email}
+                        functionOnChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
+                    />
+                    <Input
+                        type="password"
+                        placeholder="Senha"
+                        value={loginData.password}
+                        functionOnChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
+                    />
+                    <Button
+                        input={
+                            buttonEnable ?
+                                "Entrar" :
+                                <ThreeDots color="#fff" height={70} width={70} />
+                        }
+                    />
+                </Form>
+                <LinkLogin to='/cadastro'>
+                    Primeira vez? Cadastre-se!
+                </LinkLogin>
+            </>
+        )
+    }
+
     return (
         <LoginStyle>
-            <Titulo>MyWallet</Titulo>
-            <Form onSubmit={signin}>
-                <Input
-                    type="email"
-                    placeholder="E-mail"
-                    value={loginData.email}
-                    functionOnChange={(e) => setLoginData({ ...loginData, email: e.target.value })}
-                />
-                <Input
-                    type="password"
-                    placeholder="Senha"
-                    value={loginData.password}
-                    functionOnChange={(e) => setLoginData({ ...loginData, password: e.target.value })}
-                />
-                <Button
-                    input={
-                        buttonEnable ?
-                            "Entrar" :
-                            <ThreeDots color="#fff" height={70} width={70} />
-                    }
-                />
-            </Form>
-            <LinkLogin to='/cadastro'>
-                Primeira vez? Cadastre-se!
-            </LinkLogin>
+            {loginLoad ?
+                <BallTriangle
+                    heigth="500"
+                    width="500"
+                    color="#A328D6"
+                    ariaLabel="loading-indicator"
+                /> :
+                loginForms()
+            }
         </LoginStyle>
     )
 }
