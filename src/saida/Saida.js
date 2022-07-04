@@ -14,23 +14,32 @@ import { ThreeDots } from 'react-loader-spinner'
 function Saida() {
     const navigate = useNavigate();
     const { userToken } = useContext(UserContext);
+
+    useEffect(() => {
+        if (!userToken) {
+            navigate("/")
+        }
+    }, [userToken])
+
     const [saidaData, setSaidaData] = useState({
         value: 0,
         description: ''
     })
     const [buttonEnable, setButtonEnable] = useState(true)
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${userToken.token}`
-        }
-    }
-    console.log(saidaData)
+    
 
     function saidaSubmit(e) {
         e.preventDefault();
         if (!buttonEnable) return;
         if (buttonEnable) {
             setButtonEnable(false);
+
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${userToken.token}`
+                }
+            }
+
             if (saidaData.value === 0 || saidaData.value === 'R$0,00') {
                 alert('Adicione um valor')
                 return setButtonEnable(true)
