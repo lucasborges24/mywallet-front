@@ -62,7 +62,6 @@ function Saida() {
                 })
                 .catch(err => {
                     setButtonEnable(true)
-                    console.log(err.message)
                 })
         }
     }

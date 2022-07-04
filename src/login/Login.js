@@ -11,7 +11,6 @@ import { useEffect } from 'react'
 
 function Login() {
     const { setUserToken, userToken } = useContext(UserContext)
-    console.log(userToken)
 
     const navigate = useNavigate();
 
@@ -21,7 +20,6 @@ function Login() {
     useEffect(() => {
         // setUserToken(JSON.parse(localStorage.getItem("loginDataStoraged")))
         if (JSON.parse(localStorage.getItem("loginDataStoraged")) !== null) {
-            console.log('passei no logn ' + userToken)
             navigate('/')
         }
     }, [])
@@ -40,7 +38,6 @@ function Login() {
             response
                 .then(({ data }) => {
                     setUserToken({...loginData, token: data});
-                    console.log(data);
                     localStorage.setItem("loginDataStoraged", JSON.stringify({...loginData, token: data}))
                     navigate('/')
                 })

@@ -20,7 +20,6 @@ function Entrada() {
 
     useEffect(() => {
         if (!userToken) {
-            console.log(userToken)
             navigate("/")
         }
     }, [userToken])
@@ -65,7 +64,6 @@ function Entrada() {
                 })
                 .catch(err => {
                     setButtonEnable(true)
-                    console.log(err.message)
                 })
         }
     }

@@ -27,7 +27,7 @@ function Item({
 
 
     function deleteItem() {
-        if (!values.find(i => i._id === id)) return console.log('oi')
+        if (!values.find(i => i._id === id)) return alert('item não existe')
         if (window.confirm("Você quer mesmo excluir esse item?")) {
 
             const config = {
@@ -48,7 +48,7 @@ function Item({
                         .then(({ data }) => {
                             setValues(data[1].reverse())
                         })
-                        .catch(err => console.log(err.message))
+                        .catch(err => alert(err.message))
                 })
                 .catch(err => {
                     alert("não foi possível cancelar pelo erro " + err.message)

@@ -15,15 +15,6 @@ function App() {
   const [userToken, setUserToken] = useState(JSON.parse(localStorage.getItem("loginDataStoraged")));
   const [values, setValues] = useState([])
 
-  // useEffect(() => {
-  //   if (!JSON.parse(localStorage.getItem("loginDataStoraged"))) {
-  //     setUserToken(null)
-  //   } else {
-  //     setUserToken(JSON.parse(localStorage.getItem("loginDataStoraged")))
-  //   }
-  //   console.log(userToken)
-  // }, [values])
-
   return (
     <UserContext.Provider value={{
       userToken,

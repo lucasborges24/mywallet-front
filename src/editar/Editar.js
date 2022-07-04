@@ -55,7 +55,6 @@ function Editar({
             } else {
                 valueFormated = Number(editarData.value.slice(2).split(',').join('.').split('.').join('')) / 100
             }
-            console.log(valueFormated)
             const URL = `https://mywallet-fislucs.herokuapp.com/editar/${id}`
             const res = axios.put(URL, {
                 value: valueFormated,
@@ -70,7 +69,6 @@ function Editar({
                 })
                 .catch(err => {
                     setButtonEnable(true)
-                    console.log(err.message)
                 })
         }
     }

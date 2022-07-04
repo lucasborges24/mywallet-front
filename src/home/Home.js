@@ -25,7 +25,6 @@ function Home() {
 
     function load() {
         const URL = "https://mywallet-fislucs.herokuapp.com/"
-        console.log(userToken)
         const config = {
             headers: {
                 "Authorization": `Bearer ${userToken.token}`
@@ -39,7 +38,6 @@ function Home() {
                 setUser(data[0])
             })
             .catch(err => {
-                console.log(err.message)
                 // navigate('/login')
             })
     }
@@ -64,7 +62,6 @@ function Home() {
 
     function logout() {
         localStorage.removeItem("loginDataStoraged")
-        console.log(JSON.parse(localStorage.getItem("loginDataStoraged")))
         navigate("/login")
     }
 
