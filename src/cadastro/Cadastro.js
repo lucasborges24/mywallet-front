@@ -29,7 +29,8 @@ function Cadastro() {
                 setButtonEnable(true)
                 return alert('senhas sao diferentes');
             }
-            const response = axios.post("http://localhost:5000/cadastro", {
+            const URL = 'https://mywallet-fislucs.herokuapp.com'
+            const response = axios.post(`${URL}/cadastro`, {
                 name: cadastroData.name,
                 email: cadastroData.email,
                 password: cadastroData.password

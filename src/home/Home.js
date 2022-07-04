@@ -12,19 +12,27 @@ function Home() {
 
     const navigate = useNavigate();
     const { userToken, setUserToken, values, setValues } = useContext(UserContext);
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${userToken}`
-        }
-    }
+
+
     const [user, setUser] = useState({})
 
     useEffect(() => {
-        if (!userToken) return navigate("/login");
+        if (userToken === null) return navigate("/login");
 
-        const URL = "http://localhost:5000/"
+        load()
+
+    }, [])
+
+    function load() {
+        const URL = "https://mywallet-fislucs.herokuapp.com/"
+        console.log(userToken)
+        const config = {
+            headers: {
+                "Authorization": `Bearer ${userToken.token}`
+            }
+        }
+
         const res = axios.get(URL, config);
-
         res
             .then(({ data }) => {
                 setValues(data[1].reverse())
@@ -32,9 +40,9 @@ function Home() {
             })
             .catch(err => {
                 console.log(err.message)
-                navigate('/login')
+                // navigate('/login')
             })
-    }, [])
+    }
 
     function sum(values) {
         let saldo = 0;
@@ -48,7 +56,7 @@ function Home() {
         return Number(saldo.toFixed(2));
     }
 
-    function changeColor(num) {      
+    function changeColor(num) {
         if (num > 0) return '#03AC00'
         if (num < 0) return '#C70000'
         if (num === 0) return "#C6C6C6"
@@ -56,6 +64,7 @@ function Home() {
 
     function logout() {
         localStorage.removeItem("loginDataStoraged")
+        console.log(JSON.parse(localStorage.getItem("loginDataStoraged")))
         navigate("/login")
     }
 
@@ -74,7 +83,7 @@ function Home() {
                 <Movimentacoes>
                     {values.length === 0 ?
                         <Warning>Não há registros de
-                        entrada ou saída</Warning> :
+                            entrada ou saída</Warning> :
                         <>
                             <Values>
                                 {values.map((i, key) => <Item
@@ -84,7 +93,6 @@ function Home() {
                                     type={i.type}
                                     day={i.day}
                                     id={i._id}
-                                    config={config}
                                 ></Item>)}
                             </Values>
                             <Total>
@@ -192,6 +200,12 @@ const Movimentacoes = styled.div`
 const Values = styled.div`
     max-height: 90%;
     overflow-y: scroll;
+
+    -ms-overflow-style: none;  
+    scrollbar-width: none;
+    ::-webkit-scrollbar {
+    display: none;
+}
 `
 
 const Total = styled.div`

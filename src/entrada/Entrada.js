@@ -24,7 +24,7 @@ function Entrada() {
     const [buttonEnable, setButtonEnable] = useState(true)
     const config = {
         headers: {
-            "Authorization": `Bearer ${userToken}`
+            "Authorization": `Bearer ${userToken.token}`
         }
     }
 
@@ -42,7 +42,7 @@ function Entrada() {
 
             const valueFormated = Number(entradaData.value.slice(2).split(',').join('.').split('.').join('')) / 100
 
-            const URL = 'http://localhost:5000/entrada'
+            const URL = 'https://mywallet-fislucs.herokuapp.com/entrada'
             const res = axios.post(URL, {
                 value: valueFormated,
                 description: entradaData.description,

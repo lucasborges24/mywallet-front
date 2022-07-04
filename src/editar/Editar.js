@@ -24,7 +24,7 @@ function Editar({
     const { userToken, setUserToken, values, setValues } = useContext(UserContext);
     const config = {
         headers: {
-            "Authorization": `Bearer ${userToken}`
+            "Authorization": `Bearer ${userToken.token}`
         }
     }
     const item = values.find(i => i._id === id);
@@ -52,7 +52,7 @@ function Editar({
                 valueFormated = Number(editarData.value.slice(2).split(',').join('.').split('.').join('')) / 100
             }
             console.log(valueFormated)
-            const URL = `http://localhost:5000/editar/${id}`
+            const URL = `https://mywallet-fislucs.herokuapp.com/editar/${id}`
             const res = axios.put(URL, {
                 value: valueFormated,
                 description: editarData.description,

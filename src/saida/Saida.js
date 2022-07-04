@@ -21,7 +21,7 @@ function Saida() {
     const [buttonEnable, setButtonEnable] = useState(true)
     const config = {
         headers: {
-            "Authorization": `Bearer ${userToken}`
+            "Authorization": `Bearer ${userToken.token}`
         }
     }
     console.log(saidaData)
@@ -39,7 +39,7 @@ function Saida() {
             const valueFormated = Number(saidaData.value.slice(2).split(',').join('.').split('.').join('')) / 100
 
 
-            const URL = 'http://localhost:5000/saida'
+            const URL = 'https://mywallet-fislucs.herokuapp.com/saida'
             const res = axios.post(URL, {
                 value: valueFormated,
                 description: saidaData.description,

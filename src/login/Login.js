@@ -10,32 +10,19 @@ import UserContext from '../context/UserContext'
 import { useEffect } from 'react'
 
 function Login() {
+    const { setUserToken, userToken } = useContext(UserContext)
+    console.log(userToken)
 
-    const { setUserToken } = useContext(UserContext)
     const navigate = useNavigate();
 
     const [loginData, setLoginData] = useState({ email: '', password: '' })
     const [buttonEnable, setButtonEnable] = useState(true)
 
     useEffect(() => {
-        if ((JSON.parse(localStorage.getItem("loginDataStoraged"))) !== null) {
-            const dataStoraged = JSON.parse(localStorage.getItem("loginDataStoraged"))
-            
-            const res = axios.post("http://localhost:5000/login", {
-                email: dataStoraged.email,
-                password: dataStoraged.password
-            });
-
-            res
-                .then(({ data }) => {
-                    setUserToken(data)
-                    
-                    navigate('/')
-                })
-                .catch(err => {
-                    localStorage.removeItem("loginDataStoraged")
-                    
-                })
+        // setUserToken(JSON.parse(localStorage.getItem("loginDataStoraged")))
+        if (JSON.parse(localStorage.getItem("loginDataStoraged")) !== null) {
+            console.log('passei no logn ' + userToken)
+            navigate('/')
         }
     }, [])
 
@@ -45,16 +32,16 @@ function Login() {
         if (buttonEnable) {
             setButtonEnable(false);
 
-            const response = axios.post("http://localhost:5000/login", {
+            const response = axios.post("https://mywallet-fislucs.herokuapp.com/login", {
                 email: loginData.email,
                 password: loginData.password
             });
 
             response
                 .then(({ data }) => {
-                    setUserToken(data);
+                    setUserToken({...loginData, token: data});
                     console.log(data);
-                    localStorage.setItem("loginDataStoraged", JSON.stringify(loginData))
+                    localStorage.setItem("loginDataStoraged", JSON.stringify({...loginData, token: data}))
                     navigate('/')
                 })
                 .catch(err => {

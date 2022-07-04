@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route, Switch } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import UserContext from './context/UserContext';
 import Cadastro from './cadastro/Cadastro';
@@ -12,8 +12,17 @@ import Saida from './saida/Saida';
 
 function App() {
 
-  const [userToken, setUserToken] = useState(null);
+  const [userToken, setUserToken] = useState(JSON.parse(localStorage.getItem("loginDataStoraged")));
   const [values, setValues] = useState([])
+
+  // useEffect(() => {
+  //   if (!JSON.parse(localStorage.getItem("loginDataStoraged"))) {
+  //     setUserToken(null)
+  //   } else {
+  //     setUserToken(JSON.parse(localStorage.getItem("loginDataStoraged")))
+  //   }
+  //   console.log(userToken)
+  // }, [values])
 
   return (
     <UserContext.Provider value={{

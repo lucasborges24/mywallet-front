@@ -12,13 +12,18 @@ function Item({
     description,
     type,
     day,
-    id,
-    config
+    id
 }) {
 
     const navigate = useNavigate()
     const { userToken, setUserToken, values, setValues } = useContext(UserContext);
     const valueFormated = formatValue(value);
+
+    const config = {
+        headers: {
+            "Authorization": `Bearer ${userToken.token}`
+        }
+    }
 
 
     function deleteItem() {
@@ -26,13 +31,13 @@ function Item({
         if (window.confirm("Você quer mesmo excluir esse item?")) {
             console.log('deu certo')
 
-            const URL = `http://localhost:5000/${id}`
+            const URL = `https://mywallet-fislucs.herokuapp.com/${id}`
             console.log(config)
             const req = axios.delete(URL, config)
 
             req
                 .then(() => {
-                    const URL = "http://localhost:5000/"
+                    const URL = "https://mywallet-fislucs.herokuapp.com"
                     const res = axios.get(URL, config);
 
                     res
