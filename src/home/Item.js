@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
@@ -19,20 +19,24 @@ function Item({
     const { userToken, setUserToken, values, setValues } = useContext(UserContext);
     const valueFormated = formatValue(value);
 
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${userToken.token}`
+    useEffect(() => {
+        if (!userToken) {
+            navigate("/")
         }
-    }
+    }, [userToken])
 
 
     function deleteItem() {
         if (!values.find(i => i._id === id)) return console.log('oi')
         if (window.confirm("Você quer mesmo excluir esse item?")) {
-            console.log('deu certo')
+
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${userToken.token}`
+                }
+            }
 
             const URL = `https://mywallet-fislucs.herokuapp.com/${id}`
-            console.log(config)
             const req = axios.delete(URL, config)
 
             req

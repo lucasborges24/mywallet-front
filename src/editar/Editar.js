@@ -24,20 +24,8 @@ function Editar({
     const { userToken, setUserToken, values, setValues } = useContext(UserContext);
 
 
-    useEffect(() => {
-        if (!userToken) {
-            console.log(userToken)
-            navigate("/")
-        }
-    }, [])
-
-   
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${userToken.token}`
-        }
-    }
     const item = values.find(i => i._id === id);
+
     const [editarData, setEditarData] = useState({
         value: item.value,
         description: item.description
@@ -50,6 +38,12 @@ function Editar({
         if (!buttonEnable) return;
         if (buttonEnable) {
             setButtonEnable(false);
+
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${userToken.token}`
+                }
+            }
 
             if (editarData.value === 0 || editarData.value === 'R$0,00') {
                 alert('Neste caso é melhor cancelar o item')
