@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import CurrencyInput from "react-currency-input"
@@ -22,6 +22,16 @@ function Editar({
 
     const navigate = useNavigate()
     const { userToken, setUserToken, values, setValues } = useContext(UserContext);
+
+
+    useEffect(() => {
+        if (!userToken) {
+            console.log(userToken)
+            navigate("/")
+        }
+    }, [])
+
+   
     const config = {
         headers: {
             "Authorization": `Bearer ${userToken.token}`
@@ -33,7 +43,7 @@ function Editar({
         description: item.description
     })
 
-    console.log(editarData)
+
 
     function editarSubmit(event) {
         event.preventDefault();

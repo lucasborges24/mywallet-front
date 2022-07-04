@@ -17,23 +17,32 @@ function Entrada() {
 
     const navigate = useNavigate();
     const { userToken } = useContext(UserContext);
+
+    useEffect(() => {
+        if (!userToken) {
+            console.log(userToken)
+            navigate("/")
+        }
+    }, [userToken])
+
     const [entradaData, setEntradaData] = useState({
         value: 0,
         description: ''
     })
     const [buttonEnable, setButtonEnable] = useState(true)
-    const config = {
-        headers: {
-            "Authorization": `Bearer ${userToken.token}`
-        }
-    }
-
+    
 
     function entradaSubmit(event) {
         event.preventDefault();
         if (!buttonEnable) return;
         if (buttonEnable) {
             setButtonEnable(false);
+
+            const config = {
+                headers: {
+                    "Authorization": `Bearer ${userToken.token}`
+                }
+            }
 
             if (entradaData.value === 0 || entradaData.value === 'R$0,00') {
                 alert('Adicione um valor')
